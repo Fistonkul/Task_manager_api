@@ -1,16 +1,16 @@
-﻿using TaskManagerApi.Models;
+﻿using TaskManagerApi.Dtos;
+using TaskManagerApi.Models;
 
 namespace TaskManagerApi.Services
 {
     public interface ITaskService
     {
-        Task<IEnumerable<TaskItem>> GetAllTasksAsync();
-        Task<TaskItem?> GetTaskByIdAsync(int id);
-        Task<TaskItem> CreateTaskAsync(TaskItem task);
-        Task<TaskItem?> UpdateTaskAsync(int id, TaskItem updatedTask);
-        Task<IEnumerable<TaskItem>> FilterTasksAsync(string? status, string? priority, string? search);
-        Task<IEnumerable<TaskItem>> SortTasksAsync(string orderBy, string direction);
-        Task<PagedResult<TaskItem>> GetPagedTasksAsync(int pageNumber, int pageSize);
+        Task<PagedResult<TaskDto>> GetPagedTasksAsync(int page, int size);
+        Task<TaskDto?> GetTaskByIdAsync(int id);
+        Task<TaskDto> CreateTaskAsync(TaskDto task);
+        Task<TaskDto?> UpdateTaskAsync(int id, TaskDto updatedTask);
+        Task<IEnumerable<TaskDto>> FilterTasksAsync(string? status, string? priority, string? search);
+        Task<IEnumerable<TaskDto>> SortTasksAsync(string orderBy, string direction);
 
         Task<bool> DeleteTaskAsync(int id);
     }

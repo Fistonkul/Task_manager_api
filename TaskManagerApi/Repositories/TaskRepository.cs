@@ -23,8 +23,8 @@ namespace TaskManagerApi.Repositories
             return await _context.Tasks.FindAsync(id);
         }
 
-        public async Task AddAsync(TaskItem task)
-        {
+        public void Add(TaskItem task)
+        { 
             _context.Tasks.Update(task);
         }
 
@@ -48,7 +48,9 @@ namespace TaskManagerApi.Repositories
                 query = query.Where(t => t.Priority == priority);
 
             if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(t => t.Title.Contains(search) || t.Description.Contains(search));
+                query = query.Where(t => 
+                    t.Title.Contains(search) || 
+                    (t.Description != null && t.Description.Contains(search)));
 
             return await query.ToListAsync();
         }
@@ -57,7 +59,7 @@ namespace TaskManagerApi.Repositories
         {
             var query = _context.Tasks.AsQueryable();
 
-            bool descending = direction.ToLower() == "desc";
+            bool descending = direction.Equals("desc", StringComparison.CurrentCultureIgnoreCase);
 
             switch (orderBy.ToLower())
             {
