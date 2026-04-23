@@ -6,7 +6,7 @@ namespace TaskManagerApi.Repositories
     {
         Task<IEnumerable<TaskItem>> GetAllAsync();
         Task<TaskItem?> GetByIdAsync(int id);
-        Task AddAsync(TaskItem task);
+        Task Add(TaskItem task);
         void Update(TaskItem task);
         void Delete(TaskItem task);
         Task<IEnumerable<TaskItem>> FilterTasksAsync(string? status, string? priority, string? search);
